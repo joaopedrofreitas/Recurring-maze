@@ -39,5 +39,5 @@ void Win(player *vet,int col,int row,int N);
 void set_init(player *st,int col,int row,char (*mat)[col],player *vet,FILE *arq);
 void release(FILE *arq,FILE *arq2,int col,char (*mat)[col],player *st,player *vet);
 int get_Num_matrix();
-void check_vet(player *vet);
+void check_vet(player *vet,int col,int row,int N);
 #endif
