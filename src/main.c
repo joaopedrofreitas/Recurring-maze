@@ -19,6 +19,7 @@ while(1)
 {
 	printf(sep);
 	rand_stance(st,col,row,mat,vet);
+	check_vet(vet,col,row,N);
 	Check_life(st);
 	print_Maze(col,row,mat,st);
 	if(st->life==0){
