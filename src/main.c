@@ -34,7 +34,7 @@ while(1)
 	}
 	printf("\nVIDA: %hhd\n",st->life);
 	printf(sep);
-	//timer();
+	timer();
 }
 release(arq,arq2,col,mat,st,vet);
 return 0;
