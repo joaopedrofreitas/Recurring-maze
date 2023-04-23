@@ -187,7 +187,9 @@ void update_stance(player *st,int col,char (*mat)[col],player *vet){
 	}
 	else if(mat[st->x][st->y]!='0'){
 		printf("-POSIÇÃO: (%hd %hd): %c\n", st->x,st->y,mat[st->x][st->y]);
-		mat[st->x][st->y]-=1;
+		if(mat[st->x][st->y]!='#'){
+			mat[st->x][st->y]-=1;
+		}
 		printf("-POSIÇÃO DEPOIS DE SER CONSUMIDA: (%hd %hd): %c\n", st->x,st->y,mat[st->x][st->y]);
 		pego++;
 		vet[p].x=st->x;
