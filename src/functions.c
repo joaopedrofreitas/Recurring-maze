@@ -369,3 +369,9 @@ free(vet);
 int get_Num_matrix(){
 	return num_matrix;
 }
+
+void check_vet(player *vet, int col,int row,int N){
+	if(p == ((N*col*row)-1) ){
+		vet=(player*)realloc(vet, (N*col*row)*sizeof(player));
+	}
+}
