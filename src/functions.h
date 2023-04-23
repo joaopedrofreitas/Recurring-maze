@@ -31,11 +31,11 @@ int Checked_stances(player *vet,int N);
 void Check_life(player *st);
 void new_stance(player *st,int col,char (*mat)[col],player *vet);
 void timer();
-void loose(player *st,player *vet,int col,int row,int N);
+void loose(player *vet,int col,int row,int N);
 void save_maze(int col,int row,char (*mat)[col],FILE *arq,FILE *arq2,int N);//salvar no outro arquivo e passar pra esse
 void warp(int col,int row,char (*mat)[col],FILE *arq,FILE *arq2,int N,player *vet,player*st);
 bool Win_Condition(player *st,int col);
-void Win(player *st,player *vet,int col,int row,int N);
+void Win(player *vet,int col,int row,int N);
 void set_init(player *st,int col,int row,char (*mat)[col],player *vet,FILE *arq);
 void release(FILE *arq,FILE *arq2,int col,char (*mat)[col],player *st,player *vet);
 int get_Num_matrix();

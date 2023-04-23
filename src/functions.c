@@ -1,5 +1,5 @@
 #include "functions.h"
-int catch=0,perigos=0,p=0,num_matrix=0,aux_p=0,non_catch=0;
+int catch=0,perigos=0,p=0,num_matrix=0,aux_p=0,non_catch=0,pego=0;
 
 void rand_stance(player *st, int col,int row,char (*mat)[col],player *vet){//onde vai pra direita , colocar a condição de warp
 	int value=rand()%7;
@@ -135,6 +135,7 @@ void set_stance(player *st,int col,char (*mat)[col],player *vet){
 	printf("\nDIGITE A POSIÇÃO INICIAL(linha,coluna):\n");
 	scanf("%hhd %hhd", &st->x,&st->y);
 	st->life=10;
+	st->bag=0;
 	update_stance(st,col,mat,vet);
 }
 
@@ -174,7 +175,6 @@ for(int i=0;i<row;i++){
 void update_stance(player *st,int col,char (*mat)[col],player *vet){
 	if(mat[st->x][st->y]=='*'){
 		printf("-POSIÇÃO: %hd %hd, é uma area perigosa\n", st->x,st->y);
-		catch=0;
 		st->life-=1;
 		perigos++;
 		vet[p].x=st->x;
@@ -183,29 +183,30 @@ void update_stance(player *st,int col,char (*mat)[col],player *vet){
 		p++;
 		non_catch++;
 		aux_p++;
+		st->bag=0;
 	}
 	else if(mat[st->x][st->y]!='0'){
 		printf("-POSIÇÃO: (%hd %hd): %c\n", st->x,st->y,mat[st->x][st->y]);
-		st->bag+=1;
 		mat[st->x][st->y]-=1;
 		printf("-POSIÇÃO DEPOIS DE SER CONSUMIDA: (%hd %hd): %c\n", st->x,st->y,mat[st->x][st->y]);
-		catch=1;
+		pego++;
 		vet[p].x=st->x;
 		vet[p].y=st->y;
 		vet[p].bag=num_matrix;
 		p++;
 		non_catch=0;//se eu pegar 1 , zero os numero de não pego
 		aux_p++;
+		st->bag+=1;
 	}
 	else{
 		printf("-POSIÇÃO: (%hd %hd): %c, É igual a 0\n", st->x,st->y,mat[st->x][st->y]);
-		catch=0;
 		vet[p].x=st->x;
 		vet[p].y=st->y;
 		vet[p].bag=num_matrix;
 		p++;
 		non_catch++;
 		aux_p++;
+		st->bag=0;
 	}
 }
 
@@ -230,9 +231,12 @@ int Checked_stances(player *vet,int N){
 }
 
 void Check_life(player *st){
-	if((st->bag)%4 == 0 && catch == 1 && st->life != 10){
-		printf("\nMais uma vida!!\n");
-		st->life++;
+	if(st->bag==4){
+		st->bag=0;
+		if(st->life!=10){
+			st->life++;
+			printf("\nMais uma vida!!\n");
+		}
 	}
 }
 
@@ -256,13 +260,13 @@ void new_stance(player *st,int col,char (*mat)[col],player *vet){
 	update_stance(st,col,mat,vet);
 }
 
-void loose(player *st,player *vet,int col,int row,int N){
+void loose(player *vet,int col,int row,int N){
 	printf(BOLD_RED"\nFIM DE JOGO\nDERROTA\n"NO_COLOR);
 	printf("\n\n");
 	catch=Checked_stances(vet,N);
 	printf(sep);
 	printf(BRIGHT_BLUE"\t\t-STATS-"NO_COLOR);
-	printf("\nPERIGOS: %d\nQUANTIDADE DE ITENS COLETADOS: %u\nNUMERO DE POSIÇÕES CAMINHADAS: %d\nNUMERO DE POSIÇÕES NÃO CAMINHADAS: %d\n", perigos,st->bag,catch,((row*col*N)-catch));
+	printf("\nPERIGOS: %d\nQUANTIDADE DE ITENS COLETADOS: %u\nNUMERO DE POSIÇÕES CAMINHADAS: %d\nNUMERO DE POSIÇÕES NÃO CAMINHADAS: %d\n", perigos,pego,catch,((row*col*N)-catch));
 	printf(sep);
 	exit(1);
 }
@@ -335,13 +339,13 @@ bool Win_Condition(player *st,int col){
 	return 0;
 }
 
-void Win(player *st,player *vet,int col,int row,int N){
+void Win(player *vet,int col,int row,int N){
 	printf(BRIGHT_GREEN"\nFIM DE JOGO\nVITORIA\n"NO_COLOR);
 	printf("\n\n");
 	catch=Checked_stances(vet,N);
 	printf(sep);
 	printf(BRIGHT_BLUE"\t\t-STATS-"NO_COLOR);
-	printf("\nPERIGOS: %d\nQUANTIDADE DE ITENS COLETADOS: %u\nNUMERO DE POSIÇÕES CAMINHADAS: %d\nNUMERO DE POSIÇÕES NÃO CAMINHADAS: %d\n", perigos,st->bag,catch,((row*col*N)-catch));
+	printf("\nPERIGOS: %d\nQUANTIDADE DE ITENS COLETADOS: %u\nNUMERO DE POSIÇÕES CAMINHADAS: %d\nNUMERO DE POSIÇÕES NÃO CAMINHADAS: %d\n", perigos,pego,catch,((row*col*N)-catch));
 	printf(sep);
 	exit(1);
 }

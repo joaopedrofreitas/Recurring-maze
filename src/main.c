@@ -22,11 +22,11 @@ while(1)
 	Check_life(st);
 	print_Maze(col,row,mat,st);
 	if(st->life==0){
-		loose(st,vet,col,row,N);
+		loose(vet,col,row,N);
 	}
 	if(get_Num_matrix()==(N-1)){
 		if(Win_Condition(st,col)){
-			Win(st,vet,col,row,N);
+			Win(vet,col,row,N);
 		}
 	}
 	if(st->y==(col-1)){
