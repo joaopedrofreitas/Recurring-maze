@@ -128,6 +128,9 @@ Como foi dito, para uma mesma base de dados, a cada execução, obtemnos um resu
     <i>Para a execução do programa utilize <u>make</u> para realizar a compilação e logo após utilize <u>make run</u> para executar o programa</i>
 </p>
 
+# Referencias
+CORMEN, Thomas H. et al. Algoritmos: Teoria e Prática. 3. ed. Rio de Janeiro: Elsevier, 2012. Capítulo 5.
+
 # Autor
 E-mail: joaopedrofdpd2205@gmail.com</br>
 3° Período-2023-Engenharia de Computação-CEFET-MG
